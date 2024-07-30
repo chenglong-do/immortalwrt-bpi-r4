@@ -1648,6 +1648,7 @@ static unsigned int skb_to_hnat_info(struct sk_buff *skb,
 			entry.ipv6_5t_route.iblk2.dscp =
 				(ip6h->priority << 4 |
 				 (ip6h->flow_lbl[0] >> 4));
+			dscp = entry.ipv6_5t_route.iblk2.dscp;
 			break;
 
 		case NEXTHDR_IPIP:
