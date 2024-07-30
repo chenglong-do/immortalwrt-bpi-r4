@@ -107,15 +107,19 @@ case "$1" in
 		iptables -t mangle -D eqos -d $ip -j DSCP --set-dscp ${idpair}
 		ip6tables -t mangle -D eqos -m mac --mac-source $macaddr -j MARK --set-mark ${id}
 		ebtables -t nat -D eqos -p ipv6 -d $macaddr -j mark --mark-set ${idpair}
+		ip6tables -t mangle -D eqos -m mark --mark ${id} -j DSCP --set-dscp ${id}
+		ip6tables -t mangle -D eqos -m mark --mark ${idpair} -j DSCP --set-dscp ${idpair}
 		if [ $up -ne 0 ]; then
 		echo 2 0 0 1 ${up} 4 1 > /sys/kernel/debug/hnat/qdma_txq${id}
 		iptables -t mangle -A eqos -s $ip -j DSCP --set-dscp ${id}
 		ip6tables -t mangle -A eqos -m mac --mac-source $macaddr -j MARK --set-mark ${id}
+		ip6tables -t mangle -A eqos -m mark --mark ${id} -j DSCP --set-dscp ${id}
 		fi
 		if [ $dl -ne 0 ]; then
 		echo 3 0 0 1 ${dl} 4 1 > /sys/kernel/debug/hnat/qdma_txq${idpair}
 		iptables -t mangle -A eqos -d $ip -j DSCP --set-dscp ${idpair}
 		ebtables -t nat -A eqos -p ipv6 -d $macaddr -j mark --mark-set ${idpair}
+		ip6tables -t mangle -A eqos -m mark --mark ${idpair} -j DSCP --set-dscp ${idpair}
 		fi
 		else
 		iptables -t mangle -D eqos -s $ip -j MARK --set-mark 0x99
