@@ -1949,7 +1949,7 @@ static unsigned int skb_to_hnat_info(struct sk_buff *skb,
 				}
 			}
 
-			if (FROM_EXT(skb) || skb_hnat_sport(skb) == NR_QDMA_PORT)
+			if (0)
 				entry.ipv4_hnapt.iblk2.fqos = 0;
 			else
 #if defined(CONFIG_MEDIATEK_NETSYS_V3)
@@ -1985,7 +1985,7 @@ static unsigned int skb_to_hnat_info(struct sk_buff *skb,
 				}
 			}
 
-			if (FROM_EXT(skb) || skb_hnat_sport(skb) == NR_QDMA_PORT)
+			if (0)
 				entry.ipv6_5t_route.iblk2.fqos = 0;
 			else
 #if defined(CONFIG_MEDIATEK_NETSYS_V3)
